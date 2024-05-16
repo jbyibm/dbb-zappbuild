@@ -136,8 +136,8 @@ sortedList.each { buildFile ->
 	// Copy LISTING FILES
 	println "*** The property encoding is <$props.logEncoding>."
     println "*** The log file is <$logFile>."
-	println "*** The listing file is <$props.cobol_listPDS>."
-	new CopyToPDS().file(logFile).dataset(props.cobol_listPDS).member(member).hfsEncoding(props.logEncoding).pdsEncoding("Cp1047").deployType("LISTING").output(true).copy()
+	println "*** The listing file is <$props.cobol_listDatasets>."
+	new CopyToPDS().file(logFile).dataset(props.cobol__listDatasets).member(member).hfsEncoding(props.logEncoding).pdsEncoding("Cp1047").deployType("LISTING").output(true).copy()
 
 	// clean up passed DD statements
 	job.stop()
