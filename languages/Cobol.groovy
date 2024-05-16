@@ -132,6 +132,11 @@ sortedList.each { buildFile ->
 			buildUtils.updateBuildResult(errorMsg:errorMsg,logs:["${member}_bind.log":bindLogFile])
 		}
 	}
+	
+	// Copy LISTING FILES
+	println "The property encoding is <$props.logEncoding>."
+    println "The log file is <$logFile>."
+	println "The listing file is <$props.coblo_listPDS>."
 
 	// clean up passed DD statements
 	job.stop()
