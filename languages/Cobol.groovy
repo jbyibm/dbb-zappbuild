@@ -312,7 +312,7 @@ def createSideFileCommand(String buildFile, String member) {
 	MVSExec sideFile = new MVSExec().file(buildFile).pgm("IDILANGX").parm(parms)
 
 	// add DD statements
-	sideFile.dd(new DDStatement().name("LISTING").dsn("${props.cobol_listDatasets)").options("shr"))
+	sideFile.dd(new DDStatement().name("LISTING").dsn("${props.cobol_listDatasets}").options("shr"))
 	sideFile.dd(new DDStatement().name("IDILANGX").dsn("NAZARE.WDEPLOY.DBBBUILD.GENAPP.SIDEFILE").options('shr').output(true).deployType("SIDEFILE"))
 	sideFile.dd(new DDStatement().name("SYSUDUMP").options(props.cobol_printTempOptions))
 
