@@ -138,8 +138,19 @@ sortedList.each { buildFile ->
     println "*** The log file is <$logFile>."
 	println "*** The listing file is <$props.cobol_listDatasets>."
 	new CopyToPDS().file(logFile).dataset(props.cobol_listDatasets).member(member).hfsEncoding(props.logEncoding).pdsEncoding("Cp1047").deployType("LISTING").output(true).copy()
+	
+	MVSExec sideFile = createSideFileCommand(buildFile, member)
+	
+	rc = sideFile.execute()
+	if (rc > maxRC) {
+		bindFlag = false
+		String errorMsg = "*! The side file creation return code ($rc) for $buildFile exceeded the maximum return code allowed (0)"
+		println(errorMsg)
+		props.error = "true"
+		buildUtils.updateBuildResult(errorMsg:errorMsg,logs:["${member}.log":logFile])
+	}
 
-	// clean up passed DD statements
+		// clean up passed DD statements
 	job.stop()
 }
 
@@ -290,6 +301,22 @@ def createCompileCommand(String buildFile, LogicalFile logicalFile, String membe
 	compile.copy(new CopyToHFS().ddName("SYSPRINT").file(logFile).hfsEncoding(props.logEncoding))
 
 	return compile
+}
+
+/*
+ * createSideFileCommand - creates a MVSExec command for creation of the side file for the COBOL program (buildFile)
+ */
+def createSideFileCommand(String buildFile, String member) {
+	String parms = "$member (COBOL ERROR LOUD"
+	// define the MVSExec command to create the side file
+	MVSExec sideFile = new MVSExec().file(buildFile).pgm('IDILANGX').parm(parms)
+
+	// add DD statements
+	sideFile.dd(new DDStatement().name("LISTING").dsn("${props.cobol_listDatasets").options('shr'))
+	sideFile.dd(new DDStatement().name("IDILANGX").dsn("NAZARE.WDEPLOY.DBBBUILD.GENAPP.SIDEFILE").options('shr').output(true).deployType("SIDEFILE"))
+	sideFile.dd(new DDStatement().name("SYSUDUMP").options(props.cobol_printTempOptions))
+
+	return sideFile
 }
 
 
