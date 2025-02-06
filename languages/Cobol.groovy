@@ -177,7 +177,7 @@ def createSideFileCommand(String buildFile, String member) {
 
 	// add DD statements
 	sideFile.dd(new DDStatement().name("LISTING").dsn("${props.cobol_listDatasets}($member)").options("shr"))
-	sideFile.dd(new DDStatement().name("IDILANGX").dsn("NAZARE.WDEPLOY.DBBBUILD.GENAPP.LANGX($member)").options('shr').output(true).deployType("LANGX"))
+	sideFile.dd(new DDStatement().name("IDILANGX").dsn("${props.cobol_langxDatasets}($member)").options('shr').output(true).deployType("LANGX"))
 	sideFile.dd(new DDStatement().name("SYSUDUMP").options(props.cobol_printTempOptions))
 
 	return sideFile
