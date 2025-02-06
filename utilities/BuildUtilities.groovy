@@ -559,7 +559,7 @@ def createLanguageDatasets(String lang) {
 		createDatasets(props."${lang}_listDatasets".split(','), props."${lang}_listOptions")
 	
 	if (props."${lang}_langxDatasets")
-		createDatasets(props."${lang}_langxDatasets".split(','), props."${lang}_listOptions")
+		createDatasets(props."${lang}_langxDatasets".split(','), props."${lang}_langxOptions")
 		
 }
 
