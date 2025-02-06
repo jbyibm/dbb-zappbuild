@@ -554,6 +554,9 @@ def createLanguageDatasets(String lang) {
 
 	if (props."${lang}_cexecDatasets")
 		createDatasets(props."${lang}_cexecDatasets".split(','), props."${lang}_cexecOptions")
+		
+	if (props."${lang}_listDatasets")
+		createDatasets(props."${lang}_listDatasets".split(','), props."${lang}_listOptions")
 }
 
 /*
