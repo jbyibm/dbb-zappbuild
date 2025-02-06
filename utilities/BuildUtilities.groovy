@@ -557,6 +557,10 @@ def createLanguageDatasets(String lang) {
 		
 	if (props."${lang}_listDatasets")
 		createDatasets(props."${lang}_listDatasets".split(','), props."${lang}_listOptions")
+	
+	if (props."${lang}_langxDatasets")
+		createDatasets(props."${lang}_langxDatasets".split(','), props."${lang}_listOptions")
+		
 }
 
 /*
