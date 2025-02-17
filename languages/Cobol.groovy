@@ -143,7 +143,7 @@ sortedList.each { buildFile ->
 	}
 
 	// Copy LISTING FILES
-	new CopyToPDS().file(logFile).dataset(props.cobol_listDatasets).member(member).hfsEncoding(props.logEncoding).pdsEncoding("Cp1047").deployType("LISTING").output(true).copy()
+	/*new CopyToPDS().file(logFile).dataset(props.cobol_listDatasets).member(member).hfsEncoding(props.logEncoding).pdsEncoding("Cp1047").deployType("LISTING").output(true).copy()
 	MVSExec sideFile = createSideFileCommand(buildFile, member)
 	
 	rc = sideFile.execute()
@@ -153,7 +153,7 @@ sortedList.each { buildFile ->
 		println(errorMsg)
 		props.error = "true"
 		buildUtils.updateBuildResult(errorMsg:errorMsg,logs:["${member}.log":logFile])
-	}
+	}*/
 	
 	// clean up passed DD statements
 	job.stop()
