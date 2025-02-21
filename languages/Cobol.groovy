@@ -143,7 +143,7 @@ sortedList.each { buildFile ->
 	}
 
 	// Copy LISTING FILES
-	new CopyToPDS().file(logFile).dataset(props.cobol_listDatasets).member(member).hfsEncoding(props.logEncoding).pdsEncoding("Cp1047").deployType("LISTING").output(true).copy()
+	// new CopyToPDS().file(logFile).dataset(props.cobol_listDatasets).member(member).hfsEncoding(props.logEncoding).pdsEncoding("Cp1047").deployType("LISTING").output(true).copy()
 	MVSExec sideFile = createSideFileCommand(buildFile, member)
 	
 	rc = sideFile.execute()
@@ -232,7 +232,8 @@ def createCompileCommand(String buildFile, LogicalFile logicalFile, String membe
 		compile.dd(new DDStatement().name("SYSIN").dsn("${props.cobol_srcPDS}($member)").options('shr').report(true))
 	}
 	
-	compile.dd(new DDStatement().name("SYSPRINT").options(props.cobol_printTempOptions))
+	//compile.dd(new DDStatement().name("SYSPRINT").options(props.cobol_printTempOptions))
+	compile.dd(new DDStatement().name("SYSPRINT").dsn("${props.cobol_listDatasets}($member)").options('shr').report(true))
 	compile.dd(new DDStatement().name("SYSMDECK").options(props.cobol_tempOptions))
 	(1..15).toList().each { num ->
 		compile.dd(new DDStatement().name("SYSUT$num").options("cyl space(1,1) unit(sysallda) new"))
