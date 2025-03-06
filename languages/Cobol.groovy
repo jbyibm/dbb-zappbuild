@@ -176,7 +176,7 @@ def createSideFileCommand(String buildFile, String member) {
 	MVSExec sideFile = new MVSExec().file(buildFile).pgm("IDILANGX").parm(parms)
 
 	// add DD statements
-	sideFile.dd(new DDStatement().name("TASKLIB").dsn("IPV.V1R8M0.SIPVMODA").options("shr"))
+	// sideFile.dd(new DDStatement().name("TASKLIB").dsn("IPV.V1R8M0.SIPVMODA").options("shr"))
 	sideFile.dd(new DDStatement().name("LISTING").dsn("${props.cobol_listDatasets}($member)").options("shr"))
 	sideFile.dd(new DDStatement().name("IDILANGX").dsn("${props.cobol_langxDatasets}($member)").options('shr').output(true).deployType("LANGX"))
 	sideFile.dd(new DDStatement().name("SYSUDUMP").options(props.cobol_printTempOptions))
